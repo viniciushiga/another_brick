@@ -3,13 +3,13 @@ require "json"
 require "rest_client"
 require "net/ssh"
 
-require "brick/configuration"
-require "brick/bricklayer"
-require "brick/testing_tag"
-require "brick/server"
-require "brick/version"
+require "another_brick/configuration"
+require "another_brick/bricklayer"
+require "another_brick/testing_tag"
+require "another_brick/server"
+require "another_brick/version"
 
-module Brick
+module AnotherBrick
   extend self
   extend Configuration
 

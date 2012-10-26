@@ -1,4 +1,4 @@
-module Brick
+module AnotherBrick
   module TestingTag
     extend self
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require "brick"
+require "another_brick"
 
 options = Slop.parse help: true do
   on :v, :verbose,          "Verbose mode"
@@ -12,4 +12,4 @@ options = Slop.parse help: true do
   on :t, :bricklayer_tries, "Max tries to waiting bricklayer", optional: true
 end
 
-Brick.run!(options.to_hash)
+AnotherBrick.run!(options.to_hash)

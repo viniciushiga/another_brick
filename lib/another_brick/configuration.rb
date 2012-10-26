@@ -1,4 +1,4 @@
-module Brick
+module AnotherBrick
   module Configuration
     attr_accessor :bricklayer_server, :package_name,
                   :deploy_server, :deploy_user, :max_tries, :bricklayer_tries
