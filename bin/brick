@@ -3,6 +3,8 @@
 require "another_brick"
 
 options = Slop.parse help: true do
+  banner 'Another Brick'
+
   on :v, :verbose,          "Verbose mode"
   on :b, :bricklayer,       "Bricklayer host", true
   on :n, :name,             "Project name",    true

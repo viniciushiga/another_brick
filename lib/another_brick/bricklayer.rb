@@ -12,7 +12,7 @@ module AnotherBrick
       result = ""
 
       AnotherBrick.bricklayer_tries.times do
-        result = RestClient.get(log_uri % build).lines.to_a.last
+        result = RestClient.get(log_uri(build))
         break if result =~ SUCCESS or result =~ ERROR
         sleep 2
       end
@@ -75,8 +75,8 @@ module AnotherBrick
       end
     end
 
-    def log_uri
-      ("#{base_uri % "log"}/%s").tap do |uri|
+    def log_uri(build)
+      ("#{base_uri % "log"}/#{build}").tap do |uri|
         puts "log_uri: #{uri}" if AnotherBrick.verbose?
       end
     end
