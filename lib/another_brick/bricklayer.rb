@@ -12,12 +12,17 @@ module AnotherBrick
       result = ""
 
       AnotherBrick.bricklayer_tries.times do
-        result = RestClient.get(log_uri(build))
-        break if result =~ SUCCESS or result =~ ERROR
-        sleep 2
+        RestClient.get(log_uri(build)) do |response|
+          result = response
+
+          break if response =~ SUCCESS or response =~ ERROR
+
+          sleep 3
+        end
       end
 
       puts result if AnotherBrick.verbose?
+
       result =~ SUCCESS
     end
 
@@ -25,37 +30,49 @@ module AnotherBrick
       project = nil
 
       AnotherBrick.bricklayer_tries.times do
-        project = JSON.parse RestClient.get(project_uri)
-        puts "project_: #{project}" if AnotherBrick.verbose?
-        break if project["last_tag_#{AnotherBrick.tag}"] == tag
-        project = nil
-        sleep 5
+        RestClient.get(project_uri) do |response|
+          project = JSON.parse(response)
+
+          puts "project : #{project}" if AnotherBrick.verbose?
+
+          break if project && project["last_tag_#{AnotherBrick.tag}"] == tag
+
+          project = nil
+
+          sleep 3
+        end
       end
 
       abort "tag not built" unless project
+
       puts "project: #{project}" if AnotherBrick.verbose?
+
       project
     end
 
     def build(tag, project)
-      build = nil
-      done = false
+      new_version = tag.split('_')[1]
+      build       = nil
+      done        = false
 
       AnotherBrick.bricklayer_tries.times do
-        builds = JSON.parse RestClient.get(build_uri)
+        RestClient.get(build_uri) do |response|
+          builds = JSON.parse(response)
 
-        builds.reverse.each do |item|
-          done = item["version"] == tag.split('_')[1]
-          build = item if done
-          break if done
+          build = builds.find do |item|
+            item["release"] == AnotherBrick.tag && item["version"] == new_version
+          end
+
+          break if build
+
+          sleep 3
         end
-
-        break if done
-        sleep 2
       end
 
-      abort "build not found for tag #{tag}" unless done
+      abort "build not found for tag #{tag}" unless build
+
       puts "build: #{build}" if AnotherBrick.verbose?
+
       build["build"]
     end
 
