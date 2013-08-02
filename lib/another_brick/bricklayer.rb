@@ -27,7 +27,7 @@ module AnotherBrick
       AnotherBrick.bricklayer_tries.times do
         project = JSON.parse RestClient.get(project_uri)
         puts "project_: #{project}" if AnotherBrick.verbose?
-        break if project["last_tag_testing"] == tag
+        break if project["last_tag_#{AnotherBrick.tag}"] == tag
         project = nil
         sleep 5
       end

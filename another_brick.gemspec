@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "rake"
 
-  s.add_runtime_dependency "slop",          "~> 2.1"
+  s.add_runtime_dependency "slop",          "~> 3.4"
   s.add_runtime_dependency "json",          "~> 1.5"
   s.add_runtime_dependency "rest-client",   "~> 1.6"
   s.add_runtime_dependency "net-ssh",       "~> 2.6.1"

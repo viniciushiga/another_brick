@@ -5,7 +5,7 @@ require "net/ssh"
 
 require "another_brick/configuration"
 require "another_brick/bricklayer"
-require "another_brick/testing_tag"
+require "another_brick/tag"
 require "another_brick/server"
 require "another_brick/version"
 
@@ -15,9 +15,10 @@ module AnotherBrick
 
   def run!(options = {})
     load_configuration(options)
-    TestingTag.create.tap do |testing_tag|
-      Bricklayer.wait_build(testing_tag)
-      Server.deploy(testing_tag)
+
+    Tag.create(tag).tap do |new_tag|
+      Bricklayer.wait_build(new_tag)
+      Server.deploy(new_tag)
     end
   end
 end
