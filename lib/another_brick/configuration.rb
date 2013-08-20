@@ -12,6 +12,7 @@ module AnotherBrick
       self.bricklayer_tries  = options[:bricklayer_tries]
       self.tag               = options[:tag]
       @verbose               = options[:verbose]
+      RestClient.proxy       = ENV['http_proxy']
     end
 
     def verbose?
