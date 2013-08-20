@@ -8,8 +8,8 @@ module AnotherBrick
       self.package_name      = options[:name]
       self.deploy_server     = options[:server]
       self.deploy_user       = options[:user]
-      self.max_tries         = options[:max_tries]
-      self.bricklayer_tries  = options[:bricklayer_tries]
+      self.max_tries         = options[:max_tries].to_i
+      self.bricklayer_tries  = options[:bricklayer_tries].to_i
       self.tag               = options[:tag]
       @verbose               = options[:verbose]
       RestClient.proxy       = ENV['http_proxy']
