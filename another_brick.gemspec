@@ -5,8 +5,8 @@ require "another_brick/version"
 Gem::Specification.new do |s|
   s.name        = "another_brick"
   s.version     = AnotherBrick::VERSION
-  s.authors     = ["Victor Cavalcanti", "Vinicius Higa"]
-  s.email       = ["victorc.rodrigues@gmail.com", "viniciushiga@gmail.com"]
+  s.authors     = ["Victor Cavalcanti", "Vinicius Higa", "Ricardo Ruiz"]
+  s.email       = ["victorc.rodrigues@gmail.com", "viniciushiga@gmail.com", "rhruiz@gmail.com"]
   s.homepage    = "https://github.com/viniciushiga/another_brick"
   s.summary     = "Deploy debian packages using bricklayer"
   s.description = "Creates a testing tag, waits for bricklayer to build the debian package and then updates your server"
