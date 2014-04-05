@@ -3,13 +3,24 @@ module AnotherBrick
     extend self
 
     PREFIXES = %w(unstable stable testing)
+    TAG_RE   = /^(#{PREFIXES.map {|p| "#{p}"}.join("|") })(?:_(\d+.\d+.\d+))?$/
 
-    def create(prefix)
-      major, minor, build = last_tag ? strip_version(last_tag) : [0, 0, 0]
-
-      "#{prefix}_#{major}.#{minor}.#{build.to_i + 1}".tap do |next_tag|
+    def create(tag)
+      build_tag(tag).tap do |next_tag|
         `git tag #{next_tag}`
         `git push --tags`
+      end
+    end
+
+    def build_tag(tag)
+      captures = TAG_RE.match(tag).captures
+
+      if captures[1]
+        tag
+      else
+        major, minor, build = last_tag ? strip_version(last_tag) : [0, 0, 0]
+
+        "#{captures[0]}_#{major}.#{minor}.#{build.to_i + 1}"
       end
     end
 

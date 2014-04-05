@@ -6,13 +6,13 @@ options = Slop.parse help: true do
   banner 'Another Brick'
 
   on :v,   :verbose,          "Verbose mode"
-  on :b,   :bricklayer,       "Bricklayer host",                 required: true, argument: true
-  on :n,   :name,             "Project name",                    required: true, argument: true
-  on :s,   :server,           "Deploy server",                   required: true, argument: true
-  on :u,   :user,             "Deploy user",                     required: true, argument: true
-  on :m,   :max_tries,        "Max tries to waiting ssh",        optional: true, argument: true, default: 480, as: Fixnum
-  on :t,   :bricklayer_tries, "Max tries to waiting bricklayer", optional: true, argument: true, default: 480, as: Fixnum
-  on :tag, :tag,              "Tag (unstable|testing|stable)",   optional: true, argument: true, default: "testing", match: /(unstable|testing|stable)/
+  on :b,   :bricklayer,       "Bricklayer host",                          optional: true, argument: true
+  on :n,   :name,             "Project name",                             optional: true, argument: true
+  on :s,   :server,           "Deploy server",                            optional: true, argument: true
+  on :u,   :user,             "Deploy user",                              optional: true, argument: true
+  on :m,   :max_tries,        "Max tries to waiting ssh",                 optional: true, argument: true, default: 480, as: Fixnum
+  on :t,   :bricklayer_tries, "Max tries to waiting bricklayer",          optional: true, argument: true, default: 480, as: Fixnum
+  on :tag, :tag,              "Tag (unstable|testing|stable)[_$version]", optional: true, argument: true, default: "testing", match: AnotherBrick::Tag::TAG_RE
 end
 
 AnotherBrick.run!(options.to_hash)

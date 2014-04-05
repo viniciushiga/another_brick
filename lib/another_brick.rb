@@ -17,8 +17,8 @@ module AnotherBrick
     load_configuration(options)
 
     Tag.create(tag).tap do |new_tag|
-      Bricklayer.wait_build(new_tag)
-      Server.deploy(new_tag)
+      Bricklayer.wait_build(new_tag) if bricklayer_server && package_name
+      Server.deploy(new_tag) if deploy_server && deploy_user
     end
   end
 end
