@@ -21,4 +21,8 @@ module AnotherBrick
       Server.deploy(new_tag) if deploy_server && deploy_user
     end
   end
+
+  def release
+    tag.split('_')[0]
+  end
 end

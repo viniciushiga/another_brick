@@ -35,7 +35,7 @@ module AnotherBrick
 
           puts "project : #{project}" if AnotherBrick.verbose?
 
-          break if project && project["last_tag_#{AnotherBrick.tag}"] == tag
+          break if project && project["last_tag_#{AnotherBrick.release}"] == tag
 
           project = nil
 
@@ -60,7 +60,7 @@ module AnotherBrick
           builds = JSON.parse(response)
 
           build = builds.find do |item|
-            item["release"] == AnotherBrick.tag && item["version"] == new_version
+            item["release"] == AnotherBrick.release && item["version"] == new_version
           end
 
           break if build
